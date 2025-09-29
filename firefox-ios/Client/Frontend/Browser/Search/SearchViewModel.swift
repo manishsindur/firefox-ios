@@ -160,7 +160,7 @@ class SearchViewModel: FeatureFlaggable, LoaderListener {
 
     // Show list of trending searches if user puts focus in the address bar but does not enter any text.
     var shouldShowTrendingSearches: Bool {
-        let isOn = featureFlags.isFeatureEnabled(.trendingSearches, checking: .buildOnly)
+        let isOn = featureFlags.isFeatureEnabled(.trendingSearches, checking: .buildAndUser)
         return isOn && searchQuery.isEmpty
     }
 

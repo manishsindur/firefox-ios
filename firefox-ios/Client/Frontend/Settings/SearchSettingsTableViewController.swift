@@ -59,6 +59,7 @@ final class SearchSettingsTableViewController: ThemedTableViewController, Featur
     private enum SearchSuggestItem: Int, CaseIterable {
         case defaultSuggestions
         case privateSuggestions
+        case trendingSearches
     }
 
     private enum FirefoxSuggestItem: Int, CaseIterable {
@@ -179,6 +180,10 @@ final class SearchSettingsTableViewController: ThemedTableViewController, Featur
 
             case SearchSuggestItem.privateSuggestions.rawValue:
                 configureCellForPrivateSuggestionsAction(cell: cell)
+
+            case SearchSuggestItem.trendingSearches.rawValue:
+                configureCellForTrendingSearchesAction(cell: cell)
+
             default: break
             }
 
@@ -302,6 +307,21 @@ final class SearchSettingsTableViewController: ThemedTableViewController, Featur
         }
     }
 
+    private func configureCellForTrendingSearchesAction(cell: ThemedSubtitleTableViewCell) {
+        if featureFlags.isFeatureEnabled(.trendingSearches, checking: .buildOnly) {
+            buildSettingWith(
+                prefKey: PrefsKeys.SearchSettings.showTrendingSearches,
+                defaultValue: model.shouldShowTrendingSearches,
+                titleText: String.localizedStringWithFormat(
+                    "Trending Searches"
+                ),
+                cell: cell,
+                selector: #selector(didToggleShowTrendingSearches)
+            )
+            cell.accessibilityIdentifier = AccessibilityIdentifiers.Settings.Search.showTrendingSearches
+        }
+    }
+
     private func configureCellForBrowsingHistoryAction(cell: ThemedSubtitleTableViewCell) {
         buildSettingWith(
             prefKey: PrefsKeys.SearchSettings.showFirefoxBrowsingHistorySuggestions,
@@ -409,8 +429,15 @@ final class SearchSettingsTableViewController: ThemedTableViewController, Featur
             // But the option to add a Search Engine is.
             return model.orderedEngines.count
         case .searchEnginesSuggestions:
-            return featureFlags.isFeatureEnabled(.feltPrivacySimplifiedUI, checking: .buildOnly)
-            ? SearchSuggestItem.allCases.count : 1
+            var numberOfRows = 1
+            if featureFlags.isFeatureEnabled(.feltPrivacySimplifiedUI, checking: .buildOnly) {
+                numberOfRows += 1
+            }
+
+            if featureFlags.isFeatureEnabled(.trendingSearches, checking: .buildOnly) && model.shouldShowSearchSuggestions {
+                numberOfRows += 1
+            }
+            return numberOfRows
         case .firefoxSuggestSettings:
             return featureFlags.isFeatureEnabled(.firefoxSuggestFeature, checking: .buildAndUser)
             ? FirefoxSuggestItem.allCases.count : 3
@@ -687,11 +714,19 @@ extension SearchSettingsTableViewController {
     func didToggleSearchSuggestions(_ toggle: ThemedSwitch) {
         // Setting the value in settings dismisses any opt-in.
         model.shouldShowSearchSuggestions = toggle.isOn
+        // We hide and show settings based on this,
+        // so we reload this section to adjust for this.
+        tableView.reloadSections(IndexSet(integer: Section.searchEnginesSuggestions.rawValue), with: .automatic)
     }
 
     @objc
     func didToggleShowSearchSuggestionsInPrivateMode(_ toggle: ThemedSwitch) {
         model.shouldShowPrivateModeSearchSuggestions = toggle.isOn
+    }
+
+    @objc
+    func didToggleShowTrendingSearches(_ toggle: ThemedSwitch) {
+        model.shouldShowTrendingSearches = toggle.isOn
     }
 
     @objc

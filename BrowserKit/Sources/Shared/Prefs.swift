@@ -106,6 +106,7 @@ public struct PrefsKeys {
         public static let SearchBarPosition = "SearchBarPositionUsersPrefsKey"
         public static let SponsoredShortcuts = "SponsoredShortcutsUserPrefsKey"
         public static let StartAtHome = "StartAtHomeUserPrefsKey"
+        public static let trendingSearches = "trendingSearchesPrefsKey"
     }
 
     public struct HomepageSettings {
@@ -121,6 +122,7 @@ public struct PrefsKeys {
         public static let showFirefoxSponsoredSuggestions = "FirefoxSuggestShowSponsoredSuggestions"
         public static let showPrivateModeFirefoxSuggestions = "ShowPrivateModeFirefoxSuggestionsKey"
         public static let showPrivateModeSearchSuggestions = "ShowPrivateModeSearchSuggestionsKey"
+        public static let showTrendingSearches = "ShowPrivateModeSearchSuggestionsKey"
         public static let showSearchSuggestions = "FirefoxSuggestShowSearchSuggestions"
     }
 

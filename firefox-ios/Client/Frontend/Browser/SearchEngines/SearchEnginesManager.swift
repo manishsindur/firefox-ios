@@ -240,6 +240,15 @@ class SearchEnginesManager: SearchEnginesManagerProvider {
         }
     }
 
+    var shouldShowTrendingSearches = true {
+        didSet {
+            prefs.setBool(
+                shouldShowTrendingSearches,
+                forKey: PrefsKeys.SearchSettings.showTrendingSearches
+            )
+        }
+    }
+
     func isEngineEnabled(_ engine: OpenSearchEngine) -> Bool {
         if isSECEnabled {
             return !disabledEngines.contains(engine.engineID)
