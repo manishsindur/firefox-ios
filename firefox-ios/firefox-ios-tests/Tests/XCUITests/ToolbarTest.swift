@@ -214,7 +214,7 @@ class ToolbarTests: FeatureFlaggedTestBase {
             if #available(iOS 16, *) {
                 navigator.toggleOn(userState.isPrivate, withAction: Action.TogglePrivateMode)
                 navigator.performAction(Action.OpenNewTabFromTabTray)
-                app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+                navigator.performAction(Action.CloseURLBarOpen)
                 validateAddNewTabButtonOnToolbar(isPrivate: true)
             }
         }

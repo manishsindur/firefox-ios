@@ -121,7 +121,8 @@ final class HomepageSearchBarTests: FeatureFlaggedTestBase {
         mozWaitForElementToNotExist(homepageSearchBar)
         mozWaitForElementToExist(app.textFields[searchTextFieldA11y])
 
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.nowAt(HomePanelsScreen)
+        navigator.performAction(Action.CloseURLBarOpen)
         mozWaitForElementToExist(homepageSearchBar)
         mozWaitForElementToNotExist(zeroSearchScrimDimmingView)
         mozWaitForElementToNotExist(app.textFields[searchTextFieldA11y])
@@ -151,7 +152,8 @@ final class HomepageSearchBarTests: FeatureFlaggedTestBase {
         mozWaitForElementToNotExist(homepageSearchBar)
         mozWaitForElementToExist(app.textFields[searchTextFieldA11y])
 
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.nowAt(HomePanelsScreen)
+        navigator.performAction(Action.CloseURLBarOpen)
         mozWaitForElementToExist(homepageSearchBar)
         mozWaitForElementToNotExist(zeroSearchScrimDimmingView)
         mozWaitForElementToNotExist(app.textFields[searchTextFieldA11y])
@@ -179,7 +181,8 @@ final class HomepageSearchBarTests: FeatureFlaggedTestBase {
         mozWaitForElementToNotExist(homepageSearchBar)
         mozWaitForElementToExist(app.textFields[searchTextFieldA11y])
 
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.nowAt(HomePanelsScreen)
+        navigator.performAction(Action.CloseURLBarOpen)
         mozWaitForElementToExist(homepageSearchBar)
         mozWaitForElementToNotExist(zeroSearchScrimDimmingView)
         mozWaitForElementToNotExist(app.textFields[searchTextFieldA11y])
@@ -467,7 +470,8 @@ final class HomepageSearchBarTests: FeatureFlaggedTestBase {
         mozWaitForElementToNotExist(homepageSearchBar)
         mozWaitForElementToExist(app.textFields[searchTextFieldA11y])
 
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.nowAt(HomePanelsScreen)
+        navigator.performAction(Action.CloseURLBarOpen)
         mozWaitForElementToExist(homepageSearchBar)
         mozWaitForElementToNotExist(zeroSearchScrimDimmingView)
         mozWaitForElementToNotExist(app.textFields[searchTextFieldA11y])
@@ -497,7 +501,8 @@ final class HomepageSearchBarTests: FeatureFlaggedTestBase {
         mozWaitForElementToNotExist(homepageSearchBar)
         mozWaitForElementToExist(app.textFields[searchTextFieldA11y])
 
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.nowAt(HomePanelsScreen)
+        navigator.performAction(Action.CloseURLBarOpen)
         mozWaitForElementToExist(homepageSearchBar)
         mozWaitForElementToNotExist(zeroSearchScrimDimmingView)
         mozWaitForElementToNotExist(app.textFields[searchTextFieldA11y])

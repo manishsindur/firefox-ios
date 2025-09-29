@@ -51,7 +51,7 @@ class SearchTests: FeatureFlaggedTestBase {
         mozWaitForElementToExist(app.tables["SiteTable"].cells.firstMatch)
 
         // Disable Search suggestion
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.performAction(Action.CloseURLBarOpen)
 
         waitForTabsButton()
         app.buttons[AccessibilityIdentifiers.Toolbar.settingsMenuButton].waitAndTap()
@@ -66,14 +66,14 @@ class SearchTests: FeatureFlaggedTestBase {
         mozWaitForElementToNotExist(app.tables["SiteTable"].cells.firstMatch)
 
         // Verify that previous choice is remembered
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.performAction(Action.CloseURLBarOpen)
         navigator.nowAt(HomePanelsScreen)
         waitForTabsButton()
 
         typeOnSearchBar(text: "foobar")
         mozWaitForElementToNotExist(app.tables["SiteTable"].cells[SuggestedSite])
 
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.performAction(Action.CloseURLBarOpen)
         waitForTabsButton()
         app.buttons[AccessibilityIdentifiers.Toolbar.settingsMenuButton].waitAndTap()
         navigator.nowAt(BrowserTabMenu)
@@ -141,7 +141,7 @@ class SearchTests: FeatureFlaggedTestBase {
         }
         app.menuItems["Select All"].waitAndTap()
         app.menuItems["Copy"].waitAndTap()
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.performAction(Action.CloseURLBarOpen)
 
         navigator.nowAt(HomePanelsScreen)
         mozWaitForElementToExist(
@@ -294,7 +294,7 @@ class SearchTests: FeatureFlaggedTestBase {
             XCTAssertEqual(app.buttons[AccessibilityIdentifiers.Toolbar.addNewTabButton].label, "New Tab")
             app.buttons[AccessibilityIdentifiers.Toolbar.addNewTabButton].waitAndTap()
             mozWaitForElementToNotExist(app.buttons[AccessibilityIdentifiers.Toolbar.addNewTabButton])
-            app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+            navigator.performAction(Action.CloseURLBarOpen)
             mozWaitForElementToExist(app.buttons[AccessibilityIdentifiers.Toolbar.searchButton])
             XCTAssertEqual(app.buttons[AccessibilityIdentifiers.Toolbar.searchButton].label, "Search")
             app.buttons[AccessibilityIdentifiers.Toolbar.searchButton].waitAndTap()
@@ -320,9 +320,6 @@ class SearchTests: FeatureFlaggedTestBase {
         validateSearchSuggestionText(typeText: "localhost")
         restartInBackground()
         // Open new tab
-        mozWaitForElementToExist(
-            app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton]
-        )
         navigator.performAction(Action.CloseURLBarOpen)
         waitForTabsButton()
         validateSearchSuggestionText(typeText: "localhost")
@@ -374,7 +371,7 @@ class SearchTests: FeatureFlaggedTestBase {
             mozWaitForElementToExist(app.links[AccessibilityIdentifiers.FirefoxHomepage.TopSites.itemCell])
 
             // Tap the back icon <
-            app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+            navigator.performAction(Action.CloseURLBarOpen)
 
             // The focused is dismissed from the URL bar
             let addressBar = app.textFields[AccessibilityIdentifiers.Browser.AddressToolbar.searchTextField]

@@ -803,8 +803,6 @@ class HistoryTests: FeatureFlaggedTestBase {
         navigator.goto(TabTray)
         navigator.performAction(Action.OpenNewTabFromTabTray)
         if isTabTrayOff {
-            let cancelButton = app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton]
-            mozWaitForElementToExist(cancelButton, timeout: TIMEOUT_LONG)
             navigator.performAction(Action.CloseURLBarOpen)
         }
         waitForTabsButton()
@@ -836,7 +834,6 @@ class HistoryTests: FeatureFlaggedTestBase {
     }
 
     private func closeKeyboard() {
-        mozWaitForElementToExist(app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton])
         navigator.performAction(Action.CloseURLBarOpen)
         navigator.nowAt(NewTabScreen)
     }

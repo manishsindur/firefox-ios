@@ -158,7 +158,6 @@ class ActivityStreamTest: FeatureFlaggedTestBase {
         } else {
             waitForExistence(topSitesCells.staticTexts["Mozilla — Internet for people, not profit"], timeout: TIMEOUT_LONG)
         }
-        waitForExistence(app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton])
         navigator.performAction(Action.CloseURLBarOpen)
         navigator.nowAt(NewTabScreen)
         navigator.goto(SettingsScreen)
@@ -606,7 +605,8 @@ class ActivityStreamTest: FeatureFlaggedTestBase {
         navigator.goto(NewTabScreen)
         addWebsiteToShortcut(website: url_3)
         addWebsiteToShortcut(website: path(forTestPage: url_2["url"]!))
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.nowAt(NewTabScreen)
+        navigator.performAction(Action.CloseURLBarOpen)
 
         // Verify shortcuts are displayed on the homepage
         let itemCell = app.links[AccessibilityIdentifiers.FirefoxHomepage.TopSites.itemCell]

@@ -442,7 +442,7 @@ class TabsTests: FeatureFlaggedTestBase {
         mozWaitForElementToExist(app.buttons[AccessibilityIdentifiers.Toolbar.tabsButton])
         app.buttons[AccessibilityIdentifiers.Toolbar.tabsButton].press(forDuration: 1)
         app.tables.cells.buttons["New Private Tab"].waitAndTap()
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.performAction(Action.CloseURLBarOpen)
         let tabsButton = app.buttons[AccessibilityIdentifiers.Toolbar.tabsButton]
         mozWaitForElementToExist(tabsButton)
         navigator.nowAt(NewTabScreen)
@@ -499,7 +499,7 @@ class TabsTests: FeatureFlaggedTestBase {
         mozWaitForElementToExist(app.buttons[AccessibilityIdentifiers.Toolbar.tabsButton])
         app.buttons[AccessibilityIdentifiers.Toolbar.tabsButton].press(forDuration: 1)
         app.tables.cells.buttons["New Private Tab"].waitAndTap()
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.performAction(Action.CloseURLBarOpen)
         let tabsButton = app.buttons[AccessibilityIdentifiers.Toolbar.tabsButton]
         mozWaitForElementToExist(tabsButton)
         navigator.nowAt(NewTabScreen)
@@ -516,7 +516,6 @@ class TabsTests: FeatureFlaggedTestBase {
         for _ in 1...10 {
             navigator.createNewTab()
             if app.keyboards.element.isVisible() && !iPad() {
-                mozWaitForElementToExist(app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton])
                 navigator.performAction(Action.CloseURLBarOpen)
             }
         }
@@ -662,7 +661,6 @@ class TabsTests: FeatureFlaggedTestBase {
         for _ in 1...4 {
             navigator.createNewTab()
             if app.keyboards.element.isVisible() && !iPad() {
-                mozWaitForElementToExist(app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton])
                 navigator.performAction(Action.CloseURLBarOpen)
             }
         }
@@ -693,7 +691,6 @@ class TabsTests: FeatureFlaggedTestBase {
         for _ in 1...nrOfTabs {
             navigator.createNewTab()
             if app.keyboards.element.isVisible() && !iPad() {
-                mozWaitForElementToExist(app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton])
                 navigator.performAction(Action.CloseURLBarOpen)
             }
         }

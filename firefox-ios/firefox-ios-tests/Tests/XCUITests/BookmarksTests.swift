@@ -520,7 +520,7 @@ class BookmarksTests: FeatureFlaggedTestBase {
         navigator.nowAt(HomeSettings)
         navigator.goto(BrowserTab)
         navigator.performAction(Action.GoToHomePage)
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.performAction(Action.CloseURLBarOpen)
         mozWaitForElementToNotExist(app.cells["BookmarksCell"])
         navigator.nowAt(BrowserTab)
         // issue 28625: iOS 15 may not open the menu fully.
@@ -544,7 +544,7 @@ class BookmarksTests: FeatureFlaggedTestBase {
         waitUntilPageLoad()
         bookmark()
         navigator.performAction(Action.GoToHomePage)
-        app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+        navigator.performAction(Action.CloseURLBarOpen)
         longPressBookmarkCell()
         // The context menu opens, having the correct options
         let contextMenuTable = app.tables["Context Menu"]
@@ -561,16 +561,18 @@ class BookmarksTests: FeatureFlaggedTestBase {
         contextMenuTable.cells.buttons[StandardImageIdentifiers.Large.plus].waitAndTap()
         // The webpage opens in a new tab
         switchToTabAndValidate(nrOfTabs: "3")
+        app.buttons[AccessibilityIdentifiers.Toolbar.addNewTabButton].waitAndTap()
+        navigator.performAction(Action.CloseURLBarOpen)
 
-        // Tap to "Open in Private Tab"
-        if XCUIDevice.shared.orientation == .landscapeLeft || iPad() {
-            app.buttons[AccessibilityIdentifiers.Toolbar.addNewTabButton].waitAndTap()
-        } else {
-            navigator.performAction(Action.GoToHomePage)
-        }
-        if iPad() {
-            app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
-        }
+//        // Tap to "Open in Private Tab"
+//        if XCUIDevice.shared.orientation == .landscapeLeft || iPad() {
+//            app.buttons[AccessibilityIdentifiers.Toolbar.addNewTabButton].waitAndTap()
+//        } else {
+//            navigator.performAction(Action.GoToHomePage)
+//        }
+//        if iPad() {
+//            navigator.performAction(Action.CloseURLBarOpen)
+//        }
         longPressBookmarkCell()
         contextMenuTable.cells.buttons[StandardImageIdentifiers.Large.privateMode].waitAndTap()
         // The webpage opens in a new private tab
@@ -584,7 +586,7 @@ class BookmarksTests: FeatureFlaggedTestBase {
         navigator.toggleOn(userState.isPrivate, withAction: action)
         navigator.performAction(Action.OpenNewTabFromTabTray)
         if iPad() {
-            app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
+            navigator.performAction(Action.CloseURLBarOpen)
         }
         longPressBookmarkCell()
         contextMenuTable.cells.buttons[StandardImageIdentifiers.Large.bookmarkSlash].waitAndTap()
