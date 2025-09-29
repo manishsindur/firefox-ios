@@ -36,7 +36,8 @@ func registerHomePanelNavigation(in map: MMScreenGraph<FxUserState>, app: XCUIAp
         }
 
         screenState.gesture(forAction: Action.CloseURLBarOpen, transitionTo: HomePanelsScreen) {_ in
-            BaseTestCase().mozWaitForElementToExist(app.textFields[AccessibilityIdentifiers.Browser.AddressToolbar.searchTextField])
+            BaseTestCase().mozWaitForElementToExist(
+                app.textFields[AccessibilityIdentifiers.Browser.AddressToolbar.searchTextField])
             BaseTestCase().mozWaitForElementToExist(app.keyboards.keys.firstMatch)
             BaseTestCase().mozWaitElementHittable(element: app.keyboards.keys.firstMatch, timeout: TIMEOUT)
             app.buttons[AccessibilityIdentifiers.Browser.UrlBar.cancelButton].waitAndTap()
